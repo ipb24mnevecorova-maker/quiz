@@ -1,0 +1,2 @@
+CREATE DATABASE quiz;
+USE quiz;
