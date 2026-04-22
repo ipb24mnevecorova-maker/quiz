@@ -1,0 +1,133 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #d4d4d4;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    width: 100%;
+    max-width: 600px;
+    padding: 20px;
+}
+
+.profile-card {
+    background-color: #f5f5f5;
+    border-radius: 15px;
+    padding: 40px;
+    box-shadow: 2px 5px 10px #1d1d1d;
+}
+
+.profile-card h1 {
+    color: #464646;
+    font-size: 40px;
+    text-align: center;
+    margin-bottom: 30px;
+    font-weight: bold;
+}
+
+.profile-info {
+    margin-bottom: 30px;
+}
+
+.profile-info p {
+    font-size: 18px;
+    margin: 15px 0;
+    padding: 10px;
+    background-color: #e8e8e8;
+    border-radius: 8px;
+}
+
+.profile-info strong {
+    color: #333;
+    display: inline-block;
+    width: 120px;
+}
+
+.role-admin {
+    background-color: #dc3545;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.role-user {
+    background-color: #28a745;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.profile-actions {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.btn {
+    flex: 1;
+    padding: 12px 20px;
+    text-decoration: none;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.btn-home {
+    background-color: #19c444;
+    color: white;
+}
+
+.btn-home:hover {
+    background-color: #008622;
+}
+
+.btn-admin {
+    background-color: #dc3545;
+    color: white;
+}
+
+.btn-admin:hover {
+    background-color: #b02a37;
+}
+
+.btn-logout {
+    background-color: #6c757d;
+    color: white;
+}
+
+.btn-logout:hover {
+    background-color: #545b62;
+}
+
+.alert {
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 16px;
+}
+
+.alert-success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.alert-error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}

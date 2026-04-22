@@ -357,3 +357,60 @@ hr {
     color: #155724;
     border: 1px solid #c3e6cb;
 }
+
+/* turpinājums */
+
+
+.user-menu {
+    display: grid;
+    gap: 5px;
+    justify-content: left;
+    margin-top: 5px;
+}
+
+.user-btn {
+    flex: 1;
+    padding: 20px;
+    border: none;
+    border-radius: 10px;
+    font-size: 15px;
+    text-decoration: none;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.profile-btn {
+    background-color: #19c444;
+    color: white;
+}
+
+.profile-btn:hover {
+    background-color: #008622;
+}
+
+.logout-btn {
+    background-color: #6c757d;
+    color: white;
+}
+
+.logout-btn:hover {
+    background-color: #545b62;
+}
+
+
+.box1{
+    grid-area: c;
+    grid-column-start: 0;
+    grid-column-end: 11;
+    grid-row-start: 0;
+    grid-row-end: 1;
+    margin-top: -30px;
+    margin-bottom: -7px;
+    box-shadow: 2px 5px 10px #1d1d1d;
+  }
+
+  .col1 {
+  margin: auto;
+  margin-top: 6px;
+}
