@@ -5,7 +5,7 @@
     <form action="/test" method="GET">
         <div class="dropdown-wrapper">
             <label for="topic-select">Tēma:</label>
-            <select name="id" id="topic-select">
+            <select name="id" id="topic-select" required>
                 <option value="" disabled selected>-- Lūdzu, izvēlies --</option>
                 <?php foreach ($topics as $topic): ?>
                     <option value="<?= $topic['id'] ?>">
