@@ -65,8 +65,8 @@ INSERT INTO answers (question_id, text, is_correct) VALUES
 
 INSERT INTO questions (id, topic_id, text) VALUES 
 (16, 2, 'Kā sauc galveno varoni – mazo lauvu – populārajā animācijas filmā "Karalis Lauva"?'),
-(17, 2, 'Kādas krāsas ogre ir Šreks?'),
-(18, 2, 'Kurā filmā galvenā varone Elza dzied slaveno dziesmu "Lai snieg" (Let It Go)?'),
+(17, 2, 'Kādas krāsas ir Šreks?'),
+(18, 2, 'Kurā filmā galvenā varone Elza dzied slaveno dziesmu "Lai snieg"?'),
 (19, 2, 'Kā sauc mazo, dzelteno radību komandu, kas kalpo Gru filmā "Nejaukais es"?'),
 (20, 2, 'Kurš supervaronis lido ar sarkanu un zeltītu metāla tērpu?'),
 (21, 2, 'Kas ist slavenais slepenais aģents 007?'),
@@ -75,9 +75,9 @@ INSERT INTO questions (id, topic_id, text) VALUES
 (24, 2, 'Uz kuru skolu dodas bērni, lai mācītos burvestības Harija Potera filmās?'),
 (25, 2, 'Kurā filmā milzīgs kuģis saduras ar aisbergu un nogrimst okeānā?'),
 (26, 2, 'Kuru no šiem prestižajiem apbalvojumiem pasniedz labākajiem kino industrijā?'),
-(27, 2, 'Kurš populārs aktieris ir pazīstams kā "Klinšu kalns" (The Rock)?'),
+(27, 2, 'Kurš populārs aktieris ir pazīstams kā "The Rock"?'),
 (28, 2, 'Kā sauc filmu sēriju, kurā galvenā tēma ir ielu autosacīkstes un ģimene?'),
-(29, 2, 'Kurā pilsētā atrodas slavenais "Slavas alējas" (Walk of Fame) rajons Holivudā?'),
+(29, 2, 'Kurā pilsētā atrodas slavenais "Slavas alējas" rajons Holivudā?'),
 (30, 2, 'Kā sauc zilo tēlu rasi, kas dzīvo uz Pandoras planētas filmā "Avatars"?');
 
 INSERT INTO answers (question_id, text, is_correct) VALUES 
@@ -85,15 +85,15 @@ INSERT INTO answers (question_id, text, is_correct) VALUES
 (17, 'Zilas', 0), (17, 'Sarkanas', 0), (17, 'Zaļas', 1), (17, 'Dzeltenas', 0),
 (18, 'Ledus sirds (Frozen)', 1), (18, 'Salātlapiņa', 0), (18, 'Moana', 0), (18, 'Pelnrušķīte', 0),
 (19, 'Smurfi', 0), (19, 'Minioni', 1), (19, 'Hobiti', 0), (19, 'Troļļi', 0),
-(20, 'Betmens', 0), (20, 'Zirnekļcilvēks', 0), (20, 'Dzelzs vīrs (Iron Man)', 1), (20, 'Kapteinis Amerika', 0),
+(20, 'Betmens', 0), (20, 'Zirnekļcilvēks', 0), (20, 'Dzelzs vīrs', 1), (20, 'Kapteinis Amerika', 0),
 (21, 'Džeisons Borns', 0), (21, 'Džeimss Bonds', 1), (21, 'Ītans Hants', 0), (21, 'Šerloks Holmss', 0),
 (22, 'Breds Pits', 0), (22, 'Džonijs Deps', 1), (22, 'Leonardo Di Kaprio', 0), (22, 'Toms Krūzs', 0),
-(23, 'Gredzenu pavēlnieks', 0), (23, 'Zvaigžņu kari (Star Wars)', 1), (23, 'Harijs Poters', 0), (23, 'Juras laikmeta parks', 0),
-(24, 'Kembridža', 0), (24, 'Nārnija', 0), (24, 'Cūkkārpa (Hogwarts)', 1), (24, 'Oksforda', 0),
+(23, 'Gredzenu pavēlnieks', 0), (23, 'Zvaigžņu kari', 1), (23, 'Harijs Poters', 0), (23, 'Juras laikmeta parks', 0),
+(24, 'Kembridža', 0), (24, 'Nārnija', 0), (24, 'Cūkkārpa', 1), (24, 'Oksforda', 0),
 (25, 'Avatars', 0), (25, 'Jūras dzelmē', 0), (25, 'Titāniks', 1), (25, 'Poseidons', 0),
 (26, 'Nobela prēmija', 0), (26, 'Oskars', 1), (26, 'Grammy', 0), (26, 'Olimpiskā medaļa', 0),
 (27, 'Vinam Dīzelim', 0), (27, 'Dveins Džonsons', 1), (27, 'Arnolds Švarcenegers', 0), (27, 'Silvestrs Stallone', 0),
-(28, 'Need for Speed', 0), (28, 'Ātrs un bez žēlastības (Fast & Furious)', 1), (28, 'Transporteris', 0), (28, 'Formula 1', 0),
+(28, 'Need for Speed', 0), (28, 'Ātrs un bez žēlastības', 1), (28, 'Transporteris', 0), (28, 'Formula 1', 0),
 (29, 'Ņujorkā', 0), (29, 'Lasvegasā', 0), (29, 'Losandželosā', 1), (29, 'Maiami', 0),
 (30, 'Elfi', 0), (30, 'Na\'vi', 1), (30, 'Vulkāni', 0), (30, 'Transformers', 0);
 
