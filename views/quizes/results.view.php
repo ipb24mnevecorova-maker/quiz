@@ -11,12 +11,12 @@
     <h1>Your Quiz Results</h1>
     
     <p class="result-text">
-        You answered <strong><?= $score ?></strong> out of 
-        <strong><?= $totalQuestions ?></strong> questions correctly!
+        Jūs atbildējāt <strong><?= $score ?></strong> no 
+        <strong><?= $totalQuestions ?></strong> jautājumiem pareizi!
     </p>
 
     <div class="button-group">
-        <a href="/test?id=<?= $topicId ?>" class="btn retake-btn">Retake Quiz</a>
-        <a href="/select" class="btn select-btn">Choose Another Topic</a>
+        <a href="/test?id=<?= $topicId ?>" class="btn retake-btn">Atkārtot Testu</a>
+        <a href="/select" class="btn select-btn">Izvēlēties Citu Tēmu</a>
     </div>
 </div>

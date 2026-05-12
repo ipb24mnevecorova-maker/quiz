@@ -10,22 +10,22 @@
     </div>
 </header>
 
-    <form action="/test" method="GET">
+<main>
+    <h1>Question <?= $_SESSION['quiz']['current_step'] + 1 ?></h1>
+    <p><?= htmlspecialchars($current_question['text']) ?></p>
 
-    <input type="hidden" name="id" value="<?= $topicId ?>">
-    <input type="hidden" name="step" value="<?= $nextStep ?>">
-    <input type="hidden" name="score" value="<?= $score ?>">
-
-    <p><strong>Question:</strong> <?= htmlspecialchars($question['text']) ?></p>
-
-    <?php foreach ($answers as $answer) : ?>
-        <div class="answer-option">
-            <input type="radio" name="answer" id="ans-<?= $answer['id'] ?>" value="<?= $answer['id'] ?>" required>
-            <label for="ans-<?= $answer['id'] ?>"><?= htmlspecialchars($answer['text']) ?></label>
-        </div>
-    <?php endforeach; ?>
+    <form method="POST" action="/test">
+    <div class="answers-option">
+        <?php foreach ($answers as $answer) : ?>
+            <label class="answer-option">
+                <input type="radio" name="answer" value="<?= $answer['id'] ?>" required>
+                <span><?= htmlspecialchars($answer['text']) ?></span>
+            </label>
+        <?php endforeach; ?>
+    </div>
 
     <button type="submit" class="submit-btn">Submit Answer</button>
 </form>
+</main>
 </div>
 

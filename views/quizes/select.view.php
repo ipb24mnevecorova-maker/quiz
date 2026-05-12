@@ -2,7 +2,7 @@
 <div class="quiz-container">
     <h1>Izvēlies testa tēmu</h1>
     
-    <form action="/test" method="GET">
+    <form action="/select" method="GET">
         <div class="dropdown-wrapper">
             <label for="topic-select">Tēma:</label>
             <select name="id" id="topic-select" required>

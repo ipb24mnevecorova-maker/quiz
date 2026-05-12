@@ -1,44 +1,52 @@
 <?php
+if (!isset($_SESSION['quiz'])) {
+    header('location: /');
+    exit();
+}
 
-$topicId = $_GET['id'] ?? 1;
-$currentStep = (int)($_GET['step'] ?? 0);
-$score = (int)($_GET['score'] ?? 0);
+$quiz = &$_SESSION['quiz']; 
+$topic_id = $quiz['topic_id'];
 
-$topic = $db->query("SELECT * FROM topics WHERE id = :id", [
-    'id' => $topicId
-])->fetch(PDO::FETCH_ASSOC);
 
-$allQuestions = $db->query("SELECT * FROM questions WHERE topic_id = :id", [
-    'id' => $topicId
-])->fetchAll(PDO::FETCH_ASSOC);
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $answer_id = $_POST['answer_id'];
+    
+    
+    $result = $db->query("SELECT is_correct FROM answers WHERE id = ?", [$answer_id])->fetch();
 
-$totalQuestions = count($allQuestions);
-
-// Check if an answer was submitted from the PREVIOUS question[cite: 14]
-if (isset($_GET['answer'])) {
-    $lastAnswerId = $_GET['answer'];
-    $correctCheck = $db->query("SELECT is_correct FROM answers WHERE id = :id", [
-        'id' => $lastAnswerId
-    ])->fetch(PDO::FETCH_ASSOC);
-
-    if ($correctCheck && $correctCheck['is_correct']) {
-        $score++;
+    if ($result && $result['is_correct']) {
+        $quiz['score']++;
     }
+
+    $quiz['current_step']++; 
+    header('location: /test');
+    exit();
 }
 
-// Only show results if we have gone past the last question index[cite: 14]
-if ($currentStep >= $totalQuestions) {
-    require "views/quizes/results.view.php";
-    exit;
+
+$questions = $db->query("SELECT * FROM questions WHERE topic_id = ?", [$topic_id])->fetchAll();
+$current_question = $questions[$quiz['current_step']] ?? null;
+
+
+if (!$current_question) {
+
+    $score = $quiz['score']; 
+    $totalQuestions = count($questions); 
+
+    unset($_SESSION['quiz']); 
+    
+
+    require "views/quizes/results.view.php"; 
+    die();
 }
 
-$question = $allQuestions[$currentStep];
-$answers = $db->query("SELECT * FROM answers WHERE question_id = :id", [
-    'id' => $question['id']
-])->fetchAll(PDO::FETCH_ASSOC);
 
-shuffle($answers);
+$answers = $db->query("SELECT * FROM answers WHERE question_id = ?", [$current_question['id']])->fetchAll();
 
-$nextStep = $currentStep + 1;
+$topic = $db->query("SELECT name FROM topics WHERE id = ?", [$topic_id])->fetch();
+
+
+$currentStep = $quiz['current_step'];
+$totalQuestions = count($questions);
 
 require "views/quizes/test.view.php";
