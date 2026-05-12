@@ -1,0 +1,37 @@
+.quiz-container {
+        max-width: 400px;
+        margin: 20px auto;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        font-family: sans-serif;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    .progress-bar {
+        background: #eee;
+        height: 10px;
+        border-radius: 5px;
+        margin-bottom: 20px;
+    }
+    .progress {
+        background: #007bff;
+        height: 100%;
+        border-radius: 5px;
+    }
+    .answer-option {
+        margin: 15px 0;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    .submit-btn {
+        width: 100%;
+        padding: 12px;
+        background: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-weight: bold;
+        cursor: pointer;
+        margin-top: 10px;
+    }

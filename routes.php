@@ -5,5 +5,7 @@ return [
     "/register" => "controllers/quizes/register.php",
     "/profile" => "controllers/quizes/profile.php",
     "/logout" => "controllers/quizes/logout.php",
-    "/admin" => "controllers/quizes/admin.php"
+    "/admin" => "controllers/quizes/admin.php",
+    "/select" => "controllers/quizes/select.php",
+    "/test" => "controllers/quizes/test.php"
 ];

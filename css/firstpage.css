@@ -399,18 +399,119 @@ hr {
 }
 
 
-.box1{
+.box2{
     grid-area: c;
     grid-column-start: 0;
     grid-column-end: 11;
     grid-row-start: 0;
     grid-row-end: 1;
-    margin-top: -30px;
+    margin-top: -67px;
     margin-bottom: -7px;
+    
     box-shadow: 2px 5px 10px #1d1d1d;
   }
 
-  .col1 {
-  margin: auto;
-  margin-top: 6px;
+  
+
+/* Quiz selection styles for logged in users */
+.quiz-select-container {
+    text-align: center;
+    padding: 30px 20px;
+}
+
+.quiz-title {
+    color: rgb(70, 70, 70);
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    font-size: 35px;
+    margin-bottom: 30px;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.quiz-form {
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.form-group label {
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 18px;
+    color: #464646;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.form-group select {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #19c444;
+    border-radius: 8px;
+    font-size: 16px;
+    background-color: white;
+    cursor: pointer;
+}
+
+.form-group select:focus {
+    outline: none;
+    border-color: #008622;
+}
+
+.start-quiz-btn {
+    width: 100%;
+    padding: 14px 20px;
+    background-color: #19c444;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.start-quiz-btn:hover {
+    background-color: #008622;
+}
+
+
+.box1 {
+grid-area: c;
+    grid-column-start: 4;
+    grid-column-end: 8;
+    grid-row-start: 3;
+    grid-row-end: 6;
+    margin-top: -75px;
+    margin-bottom: 20px;
+    box-shadow: 2px 5px 10px #1d1d1d;
+}
+
+@media screen and (max-width: 1100px) {
+  .box1 {
+     grid-column-start: 3;
+     grid-column-end: 9;
+  }
+ 
+}
+
+@media screen and (max-width: 710px) {
+  .box1 {
+     grid-column-start: 2;
+     grid-column-end: 10;
+  }
+ 
+}
+
+@media screen and (max-width: 450px) {
+  .box1 {
+     grid-column-start: 1;
+     grid-column-end: 11;
+  }
+ 
 }

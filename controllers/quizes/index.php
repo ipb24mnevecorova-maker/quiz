@@ -1,5 +1,12 @@
 <?php 
 session_start(); 
+
+require_once __DIR__ . '/../../Database.php';
+$config = require __DIR__ . '/../../config.php';
+$db = new Database($config['database']);
+
+// Iegūt tēmas no datubāzes
+$topics = $db->query("SELECT * FROM topics")->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -9,6 +16,7 @@ session_start();
     <title>Quiz</title>
     <link rel="stylesheet" href="css/firstpage.css">
     <link rel="stylesheet" href="css/sidebar.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
@@ -31,7 +39,6 @@ session_start();
 <?php endif; ?>
 
 <?php if (isset($_SESSION['username'])): ?>
-    <!-- Logged in user with sidebar -->
     <!-- Menu Button - Left Side -->
     <div class="sidebar-trigger">
         <button id="menuToggle" class="menu-toggle">
@@ -42,7 +49,7 @@ session_start();
     <!-- Sidebar Overlay -->
     <div id="sidebarOverlay" class="sidebar-overlay"></div>
 
-    <!-- Sidebar - Left Side -->
+    <!-- Sidebar -->
     <div id="sidebar" class="sidebar">
         <div class="sidebar-header">
             <h3>Menu</h3>
@@ -63,11 +70,24 @@ session_start();
                 <span class="icon">🖼️</span>
                 <span class="text">My Profile</span>
             </a>
+            <a href="" class="sidebar-menu-item">
+                <span class="icon">🗂️</span>
+                <span class="text">History</span>
+            </a>
+            <a href="" class="sidebar-menu-item">
+                <span class="icon">🏅</span>
+                <span class="text">High Score</span>
+            </a>
             
             <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin'): ?>
+                <div class="sidebar-divider"></div>
                 <a href="/admin" class="sidebar-menu-item">
                     <span class="icon">⚙️</span>
                     <span class="text">Admin Panel</span>
+                </a>
+                <a href="/add-quiz" class="sidebar-menu-item">
+                    <span class="icon">📜</span>
+                    <span class="text">Add Quiz</span>
                 </a>
             <?php endif; ?>
             
@@ -81,9 +101,35 @@ session_start();
     </div>
 
     <div class="wrapper">
+
+<div class="box2"> 
+
+            </div>
+
         <div class="box1">
             <div class="col1">
-               
+                <!-- Quiz Selection Form -->
+                <div class="quiz-select-container">
+                    <h2 class="quiz-title">Choose Your Quiz Topic</h2>
+                    
+                    <form action="/test" method="GET" class="quiz-form">
+                        <div class="form-group">
+                            <label for="topic-select">Select Topic:</label>
+                            <select name="id" id="topic-select" required>
+                                <option value="" disabled selected>-- Please choose a topic --</option>
+                                <?php foreach ($topics as $topic): ?>
+                                    <option value="<?= $topic['id'] ?>">
+                                        <?= htmlspecialchars($topic['name']) ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                        <button type="submit" class="start-quiz-btn">Start Quiz</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
 <?php else: ?>
     <!-- Not logged in user -->
