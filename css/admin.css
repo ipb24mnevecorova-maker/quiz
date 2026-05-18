@@ -153,3 +153,47 @@ select {
         font-size: 12px;
     }
 }
+
+@media (max-width: 450px) {
+    .container {
+        padding: 25px;
+    }
+    
+    .admin-header {
+        flex-direction: column;
+        gap: 25px;
+    }
+    
+    th, td {
+        padding: 10px 4px;
+        font-size: 11px;
+    }
+    
+    select {
+        font-size: 9px;
+    }
+}
+
+@media (max-width: 357px) {
+    .container {
+        padding: 25px;
+    }
+    
+    .admin-header {
+        flex-direction: column;
+        gap: 25px;
+    }
+    
+    th, td {
+        padding: 14px 4px;
+        font-size: 10px;
+    }
+    
+    select {
+        font-size: 8px;
+    }
+
+    .btn-delete {
+    font-size: 10px;
+}
+}

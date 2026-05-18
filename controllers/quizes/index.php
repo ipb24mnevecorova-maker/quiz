@@ -70,11 +70,7 @@ $topics = $db->query("SELECT * FROM topics")->fetchAll(PDO::FETCH_ASSOC);
                 <span class="icon">🖼️</span>
                 <span class="text">My Profile</span>
             </a>
-            <a href="" class="sidebar-menu-item">
-                <span class="icon">🗂️</span>
-                <span class="text">History</span>
-            </a>
-            <a href="" class="sidebar-menu-item">
+            <a href="/highscores" class="sidebar-menu-item">
                 <span class="icon">🏅</span>
                 <span class="text">High Score</span>
             </a>
@@ -88,6 +84,10 @@ $topics = $db->query("SELECT * FROM topics")->fetchAll(PDO::FETCH_ASSOC);
                 <a href="/add-quiz" class="sidebar-menu-item">
                     <span class="icon">📜</span>
                     <span class="text">Add Quiz</span>
+                </a>
+                <a href="/manage-quiz" class="sidebar-menu-item">  <!-- PIEVIENO ŠO -->
+                    <span class="icon">✏️</span>
+                    <span class="text">Manage Quiz</span>
                 </a>
             <?php endif; ?>
             

@@ -1,30 +1,28 @@
 <link rel="stylesheet" href="/css/test.css">
 <div class="quiz-container">
     <header>
-    <h2><?= htmlspecialchars($topic['name']) ?> Quiz</h2>
-    <p>Question <?= $currentStep + 1 ?> of <?= $totalQuestions ?></p>
-    
-    <div class="progress-bar">
-
-        <div class="progress" style="width: <?= (($currentStep + 1) / $totalQuestions) * 100 ?>%;"></div>
-    </div>
-</header>
-
-    <form action="/test" method="GET">
-
-    <input type="hidden" name="id" value="<?= $topicId ?>">
-    <input type="hidden" name="step" value="<?= $nextStep ?>">
-    <input type="hidden" name="score" value="<?= $score ?>">
-
-    <p><strong>Question:</strong> <?= htmlspecialchars($question['text']) ?></p>
-
-    <?php foreach ($answers as $answer) : ?>
-        <div class="answer-option">
-            <input type="radio" name="answer" id="ans-<?= $answer['id'] ?>" value="<?= $answer['id'] ?>" required>
-            <label for="ans-<?= $answer['id'] ?>"><?= htmlspecialchars($answer['text']) ?></label>
+        <h2><?= htmlspecialchars($topic['name'] ?? 'Quiz') ?></h2>
+        <p>Question <?= ($currentStepIndex + 1) ?> of <?= $totalQuestions ?></p>
+        
+        <div class="progress-bar">
+            <div class="progress" style="width: <?= (($currentStepIndex + 1) / $totalQuestions) * 100 ?>%;"></div>
         </div>
-    <?php endforeach; ?>
+    </header>
 
-    <button type="submit" class="submit-btn">Submit Answer</button>
-</form>
+    <form action="/test?id=<?= $topicId ?>" method="POST">
+        <p><strong>Question:</strong> <?= htmlspecialchars($questionText) ?></p>
+
+        <?php if (!empty($answers)): ?>
+            <?php foreach ($answers as $answer) : ?>
+                <div class="answer-option">
+                    <input type="radio" name="answer_id" id="ans-<?= $answer['id'] ?>" value="<?= $answer['id'] ?>" required>
+                    <label for="ans-<?= $answer['id'] ?>"><?= htmlspecialchars($answer['text'] ?? 'No answer text') ?></label>
+                </div>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <p>No answers found for this question.</p>
+        <?php endif; ?>
+
+        <button type="submit" class="submit-btn">Submit Answer</button>
+    </form>
 </div>

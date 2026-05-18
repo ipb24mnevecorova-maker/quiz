@@ -35,3 +35,10 @@
         cursor: pointer;
         margin-top: 10px;
     }
+
+    @media screen and (max-width: 350px) {
+  
+ .quiz-container {
+        font-size: 30px;
+    }
+}
