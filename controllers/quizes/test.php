@@ -21,13 +21,38 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
-// Initialize new quiz session if topic changed or no quiz exists
-if (!isset($_SESSION['quiz']) || $_SESSION['quiz']['topic_id'] != $topicId) {
+// Initialize new quiz session if topic changed, no quiz exists, or we are starting fresh
+if (!isset($_SESSION['quiz']) || $_SESSION['quiz']['topic_id'] != $topicId || !isset($_SESSION['quiz']['questions'])) {
+    $questions = $db->query("SELECT * FROM questions WHERE topic_id = :id", [
+        'id' => $topicId
+    ])->fetchAll(PDO::FETCH_ASSOC);
+    
+    shuffle($questions); // This will now run successfully on a fresh start
+
     $_SESSION['quiz'] = [
         'topic_id' => $topicId,
         'current_step' => 0,
-        'score' => 0
+        'score' => 0,
+        'questions' => $questions
     ];
+} else {
+    // IF WE ARE RETURNING TO THE SAME TEST:
+    // Keep completed questions in place, shuffle the remaining unanswered ones!
+    $quiz = &$_SESSION['quiz'];
+    $currentStep = $quiz['current_step'];
+    $allQuestions = $quiz['questions'];
+
+    if ($currentStep < count($allQuestions)) {
+        // 1. Separate the quiz into answered and unanswered chunks
+        $answered = array_slice($allQuestions, 0, $currentStep);
+        $unanswered = array_slice($allQuestions, $currentStep);
+
+        // 2. Shuffle only the unanswered questions
+        shuffle($unanswered);
+
+        // 3. Merge them back together and update the session
+        $_SESSION['quiz']['questions'] = array_merge($answered, $unanswered);
+    }
 }
 
 $quiz = &$_SESSION['quiz'];
@@ -44,11 +69,8 @@ if (!$topic) {
     exit();
 }
 
-// Get all questions for this topic
-$questions = $db->query("SELECT * FROM questions WHERE topic_id = :id", [
-    'id' => $topicId
-])->fetchAll(PDO::FETCH_ASSOC);
 
+$questions =$quiz['questions'] ?? [];
 $totalQuestions = count($questions);
 
 // DEBUG: Check if questions are loaded
