@@ -61,6 +61,40 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     continue;
                 }
                 
+                // Pārbauda vai ir vismaz viena pareizā atbilde
+                $hasCorrectAnswer = false;
+                $validAnswers = [];
+                
+                foreach ($answers as $answer_data) {
+                    $answer_text = trim($answer_data['text'] ?? '');
+                    $is_correct = isset($answer_data['is_correct']) ? 1 : 0;
+                    
+                    // Izlaiž tukšas atbildes
+                    if (empty($answer_text)) {
+                        continue;
+                    }
+                    
+                    if ($is_correct) {
+                        $hasCorrectAnswer = true;
+                    }
+                    
+                    $validAnswers[] = [
+                        'text' => $answer_text,
+                        'is_correct' => $is_correct
+                    ];
+                }
+                
+                // Pārbauda vai ir vismaz viena atbilde un viena pareizā
+                if (empty($validAnswers)) {
+                    $error = "Each question must have at least one answer!";
+                    break;
+                }
+                
+                if (!$hasCorrectAnswer) {
+                    $error = "Each question must have at least one correct answer marked!";
+                    break;
+                }
+                
                 // Ievieto jautājumu
                 $db->query(
                     "INSERT INTO questions (topic_id, text) VALUES (:topic_id, :text)",
@@ -69,32 +103,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 
                 $question_id = $db->query("SELECT LAST_INSERT_ID() as id")->fetch()['id'];
                 
-                // Ievieto atbildes
-                foreach ($answers as $answer_data) {
-                    $answer_text = trim($answer_data['text'] ?? '');
-                    $is_correct = isset($answer_data['is_correct']) ? 1 : 0;
-                    
-                    if (!empty($answer_text)) {
-                        $db->query(
-                            "INSERT INTO answers (question_id, text, is_correct) VALUES (:question_id, :text, :is_correct)",
-                            ['question_id' => $question_id, 'text' => $answer_text, 'is_correct' => $is_correct]
-                        );
-                    }
+                // Ievieto atbildes (tikai validās)
+                foreach ($validAnswers as $answer) {
+                    $db->query(
+                        "INSERT INTO answers (question_id, text, is_correct) VALUES (:question_id, :text, :is_correct)",
+                        ['question_id' => $question_id, 'text' => $answer['text'], 'is_correct' => $answer['is_correct']]
+                    );
                 }
                 
                 $saved_count++;
             }
             
-            if ($saved_count > 0) {
+            if ($saved_count > 0 && empty($error)) {
                 $_SESSION['success'] = "Added successfully {$saved_count} questions!";
                 header('Location: /add-quiz');
                 exit();
-            } else {
-                $error = "Failed to save questions";
             }
         }
     }
-    
    
     if (isset($_POST['select_topic'])) {
         $topic_id = (int)$_POST['topic_id_select'];
@@ -257,7 +283,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         function addAnswerFields(questionId, answerNum) {
             return `
                 <div class="answer-row">
-                    <input type="text" name="questions[${questionId}][answers][${answerNum}][text]" placeholder="Answer ${answerNum}" class="answer-input">
+                    <input type="text" name="questions[${questionId}][answers][${answerNum}][text]" placeholder="Answer ${answerNum}" class="answer-input" required>
                     <label class="checkbox-label">
                         <input type="checkbox" name="questions[${questionId}][answers][${answerNum}][is_correct]" value="1"> Correct
                     </label>
@@ -272,11 +298,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             const newAnswer = document.createElement('div');
             newAnswer.className = 'answer-row';
             newAnswer.innerHTML = `
-                <input type="text" name="questions[${questionId}][answers][${answerCount}][text]" placeholder="Atbilde ${answerCount}" class="answer-input">
+                <input type="text" name="questions[${questionId}][answers][${answerCount}][text]" placeholder="Answer ${answerCount}" class="answer-input" required>
                 <label class="checkbox-label">
-                    <input type="checkbox" name="questions[${questionId}][answers][${answerCount}][is_correct]" value="1"> Pareiza
+                    <input type="checkbox" name="questions[${questionId}][answers][${answerCount}][is_correct]" value="1"> Correct
                 </label>
-                <button type="button" class="btn-remove-answer" onclick="removeAnswer(this)">🗑</button>
+                <button type="button" class="btn-remove-answer" onclick="removeAnswer(this)">❌</button>
             `;
             answersContainer.appendChild(newAnswer);
         }
@@ -299,7 +325,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 const newNum = index + 1;
                 const header = question.querySelector('.question-header h3');
                 if (header) {
-                    header.textContent = `Jautājums ${newNum}`;
+                    header.textContent = `Question ${newNum}`;
                 }
                 
                 // Atjaunot name atribūtus
@@ -326,21 +352,54 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
         document.getElementById('addQuestionBtn').addEventListener('click', addQuestion);
         
-        // Pārbauda vai katrai atbildei ir vismaz viena pareizā atbilde
+        // Pārbauda vai katrai atbildei ir vismaz viena pareizā atbilde UN vai nav tukšu atbilžu
         document.getElementById('quizForm').addEventListener('submit', function(e) {
             const questions = document.querySelectorAll('.question-card');
             let hasError = false;
+            let errorMessage = '';
             
             questions.forEach((question, index) => {
-                const checkboxes = question.querySelectorAll('input[type="checkbox"]');
+                const answerRows = question.querySelectorAll('.answer-row');
                 let hasCorrect = false;
-                checkboxes.forEach(cb => {
-                    if (cb.checked) hasCorrect = true;
+                let hasEmptyAnswer = false;
+                let answerCount = 0;
+                
+                answerRows.forEach(row => {
+                    const answerInput = row.querySelector('.answer-input');
+                    const answerText = answerInput.value.trim();
+                    const checkbox = row.querySelector('input[type="checkbox"]');
+                    
+                    // Pārbauda vai atbilde nav tukša
+                    if (answerText === '') {
+                        hasEmptyAnswer = true;
+                        errorMessage = `Question has an empty answer! Please fill in all answers.`;
+                    }
+                    
+                    if (answerText !== '') {
+                        answerCount++;
+                    }
+                    
+                    if (checkbox && checkbox.checked) {
+                        hasCorrect = true;
+                    }
                 });
                 
-                if (!hasCorrect) {
-                    alert(`Jautājumam ${index + 1} nav atzīmēta neviena pareizā atbilde!`);
+                if (hasEmptyAnswer) {
                     hasError = true;
+                    alert(errorMessage);
+                    return;
+                }
+                
+                if (answerCount === 0) {
+                    hasError = true;
+                    alert(`Question ${index + 1} must have at least one answer!`);
+                    return;
+                }
+                
+                if (!hasCorrect) {
+                    hasError = true;
+                    alert(`Question ${index + 1} has no correct answer marked!`);
+                    return;
                 }
             });
             
