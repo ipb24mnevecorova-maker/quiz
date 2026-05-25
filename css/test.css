@@ -1,44 +1,142 @@
-.quiz-container {
-        max-width: 400px;
-        margin: 20px auto;
-        padding: 20px;
-        border: 1px solid #ddd;
-        border-radius: 8px;
-        font-family: sans-serif;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    }
-    .progress-bar {
-        background: #eee;
-        height: 10px;
-        border-radius: 5px;
-        margin-bottom: 20px;
-    }
-    .progress {
-        background: #007bff;
-        height: 100%;
-        border-radius: 5px;
-    }
-    .answer-option {
-        margin: 15px 0;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }
-    .submit-btn {
-        width: 100%;
-        padding: 12px;
-        background: #007bff;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        font-weight: bold;
-        cursor: pointer;
-        margin-top: 10px;
-    }
+/* test.css - Responsive Quiz Styles */
 
-    @media screen and (max-width: 350px) {
-  
- .quiz-container {
-        font-size: 30px;
+/* Pamata stili */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 20px;
+    font-family: sans-serif;
+    background-color: #d4d4d4;
+}
+
+.quiz-container {
+    max-width: 500px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-family: sans-serif;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    background-color: white;
+}
+
+.progress-bar {
+    background: #eee;
+    height: 10px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.progress {
+    background: #007bff;
+    height: 100%;
+    border-radius: 5px;
+}
+
+.answer-option {
+    margin: 15px 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.answer-option input[type="radio"] {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+}
+
+.answer-option label {
+    font-size: 16px;
+    line-height: 1.4;
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 12px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+    font-size: 16px;
+}
+
+.submit-btn:hover {
+    background: #0056b3;
+}
+
+/* RESPONSIVE - mobilajām ierīcēm */
+@media screen and (max-width: 600px) {
+    body {
+        padding: 10px;
+    }
+    
+    .quiz-container {
+        max-width: 100%;
+        padding: 15px;
+        margin: 0;
+    }
+    
+    .quiz-container header h2 {
+        font-size: 20px;
+        margin: 0 0 10px 0;
+    }
+    
+    .quiz-container header p {
+        font-size: 14px;
+        margin: 5px 0;
+    }
+    
+    .answer-option label {
+        font-size: 14px;
+    }
+    
+    .submit-btn {
+        padding: 12px;
+        font-size: 16px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    body {
+        padding: 5px;
+    }
+    
+    .quiz-container {
+        padding: 12px;
+    }
+    
+    .quiz-container header h2 {
+        font-size: 18px;
+    }
+    
+    .answer-option {
+        gap: 8px;
+    }
+    
+    .answer-option label {
+        font-size: 13px;
+    }
+    
+    .submit-btn {
+        padding: 10px;
+        font-size: 14px;
+    }
+}
+
+@media screen and (max-width: 350px) {
+    .answer-option {
+        flex-wrap: wrap;
+    }
+    
+    .answer-option label {
+        font-size: 12px;
     }
 }
